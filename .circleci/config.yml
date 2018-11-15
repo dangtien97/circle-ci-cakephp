@@ -51,7 +51,7 @@ jobs:
             - "/home/ubuntu/.composer/cache"
       - run:
           name: php code sniffer
-		  command: vendor/bin/phpcs --colors -p --encoding=utf-8 --extensions=php --standard=phpcs.xml.dist ./src ./tests
+          command: vendor/bin/phpcs --colors -p --encoding=utf-8 --extensions=php --standard=phpcs.xml.dist ./src ./tests
 
 workflows:
   version: 2
