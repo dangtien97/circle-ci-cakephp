@@ -47,9 +47,6 @@ jobs:
           key: cakephp3-circleci-example-{{ .Branch }}
           paths:
             - "/home/ubuntu/.composer/cache"
-      - run:
-          name: php code sniffer
-          command: vendor/bin/phpcs --colors -p --encoding=utf-8 ./src ./tests
 
 workflows:
   version: 2
