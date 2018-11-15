@@ -1,37 +1,25 @@
-# PHP CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-php/ for more details
-#
-version: 2
-jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/php:7.1-browsers
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mysql:9.4
+machine:
+  php:
+    version: 5.6.38
+dependencies:
+  pre:
+    - chmod -R 777 ~/circle-ci-cakephp/app/tmp
+  post:
+    - echo "<?php
+        class DATABASE_CONFIG {
+        public \$test = array(
+          'datasource' => 'Database/Mysql',
+          'persistent' => false,
+          'host' => '127.0.0.1',
+          'login' => 'ubuntu',
+          'password' => '',
+          'database' => 'circle_test',
+          'prefix' => ''
+        );
+        }" > ~/circle-ci-cakephp/app/Config/database.php
+    - cd ~/circle-ci-cakephp/app/ && composer install
+test:
+  override:
+    - cd ~/circle-ci-cakephp/app/ && ./Console/cake test app AllTests
 
-    working_directory: ~/repo
 
-    steps:
-      - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "composer.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run: composer install -n --prefer-dist
-
-      - save_cache:
-          paths:
-            - ./vendor
-          key: v1-dependencies-{{ checksum "composer.json" }}
-        
-      # run tests!
-      - run: phpunit
