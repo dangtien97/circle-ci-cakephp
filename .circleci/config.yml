@@ -7,7 +7,7 @@ jobs:
           DEBUG: true
           DATABASE_URL: "mysql://root:password@127.0.0.1/cisample?encoding=utf8mb4&timezone=UTC&cacheMetadata=true"
           DATABASE_TEST_URL: "mysql://root:password@127.0.0.1/cisample?encoding=utf8mb4&timezone=UTC&cacheMetadata=true"
-      - image: circleci/mysql:8.0
+      - image: circleci/mysql:5.7
         command: mysqld  --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
         environment:
           MYSQL_DATABASE: cisample
@@ -15,11 +15,11 @@ jobs:
     working_directory: /var/www/html
     steps:
       - restore_cache:
-          key: cakephp3-circleci-example-{{ .Branch }}
+          key: circle-ci-cakephp-{{ .Branch }}
       - checkout
       - run: composer install --dev --no-interaction
       - save_cache:
-          key: cakephp3-circleci-example-{{ .Branch }}
+          key: circle-ci-cakephp-{{ .Branch }}
           paths:
             - "/home/ubuntu/.composer/cache"
       - run:
