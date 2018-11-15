@@ -44,7 +44,7 @@ jobs:
       - checkout
       - run:
           name: Install dependency 
-		  command: composer install --dev --no-interaction
+          command: composer install --dev --no-interaction
       - save_cache:
           key: cakephp3-circleci-example-{{ .Branch }}
           paths:
