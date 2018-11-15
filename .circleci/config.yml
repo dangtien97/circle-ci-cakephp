@@ -43,7 +43,6 @@ jobs:
           key: cakephp3-circleci-example-{{ .Branch }}
       - checkout
       - run: composer install --dev --no-interaction
-      - run: composer require --dev phpunit/phpunit:"^5.7|^6.0"
       - save_cache:
           key: cakephp3-circleci-example-{{ .Branch }}
           paths:
