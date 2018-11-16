@@ -14,9 +14,6 @@ jobs:
           MYSQL_ROOT_PASSWORD: password
     working_directory: /var/www/html
     steps:
-      - run:
-          name: Provide permisson for circleci
-          command: chown -R circleci:circleci /var/www/html
       - restore_cache:
           key: circle-ci-cakephp-{{ .Branch }}
       - checkout
