@@ -1,6 +1,6 @@
 project_type: php
 test:
   phpcs:
-    command: vendor/bin/phpcs --colors -p --encoding=utf-8 --extensions=php --standard=phpcs.xml.dist ./src ./test
+    command: vendor/bin/phpcs --colors -p --encoding=utf-8 --extensions=php --standard=phpcs.xml.dist ./src ./tests
   phpunit:
     command: vendor/bin/phpunit --configuration phpunit.xml.dist --log-junit $CIRCLE_TEST_REPORTS/phpunit/junit.xml
