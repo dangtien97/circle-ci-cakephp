@@ -31,7 +31,6 @@ jobs:
       - run:
           name: Initialize Database
           command: bin/cake migrations migrate
-      - run: vendor/bin/phpunit --configuration phpunit.xml.dist --log-junit $CIRCLE_TEST_REPORTS/phpunit/junit.xml
   php_code_sniffer:
     docker:
       - image: tenkoma/php:7.1-apache-sample
@@ -40,18 +39,21 @@ jobs:
     working_directory: /var/www/html
     steps:
       - restore_cache:
-          key: cakephp3-circleci-example-{{ .Branch }}
+          key: circle-ci-cakephp-{{ .Branch }}
       - checkout
       - run:
           name: Install dependency 
           command: composer install --dev --no-interaction
+      - run:
+          name: Install Framgia-ci tool
+          command: curl -o /usr/bin/framgia-ci https://raw.githubusercontent.com/framgia/ci-report-tool/master/dist/framgia-ci && chmod +x /usr/bin/framgia-ci
       - save_cache:
-          key: cakephp3-circleci-example-{{ .Branch }}
+          key: circle-ci-cakephp-{{ .Branch }}
           paths:
             - "/home/ubuntu/.composer/cache"
       - run:
-          name: php code sniffer
-          command: vendor/bin/phpcs --colors -p --encoding=utf-8 --extensions=php --standard=phpcs.xml.dist ./src ./tests
+          name: Run Framgia-ci tool
+          command: framgia-ci run --local
 
 workflows:
   version: 2
