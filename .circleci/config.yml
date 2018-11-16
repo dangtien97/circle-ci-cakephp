@@ -32,7 +32,7 @@ jobs:
             - "/home/ubuntu/.composer/cache"
       - run:
           name: create test repot dir
-          command: mkdir -p $CIRCLE_TEST_REPORTS/phpunit
+          command: sudo mkdir -p $CIRCLE_TEST_REPORTS/phpunit
       - run:
           name: Wait for MySQL DB
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
