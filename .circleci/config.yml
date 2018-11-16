@@ -38,7 +38,7 @@ jobs:
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
           name: Install php-mysql
-          command: sudo apt-get install php-mysql
+          command: sudo apt-get install php5.6-mysql
       - run:
           name: Initialize Database
           command: bin/cake migrations migrate
