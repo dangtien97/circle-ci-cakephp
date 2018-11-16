@@ -43,7 +43,7 @@ jobs:
     steps:
       - run:
           name: Provide permisson for circleci
-          command: chown -R circleci:circleci /var/www/html
+          command: sudo chown -R circleci:circleci /var/www/html
       - restore_cache:
           key: circle-ci-cakephp-{{ .Branch }}
       - checkout
