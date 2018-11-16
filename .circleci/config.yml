@@ -2,7 +2,7 @@ version: 2
 jobs:
   main_test:
     docker:
-      - image: 1and1internet/ubuntu-16-apache-php-5.6:latest
+      - image: drupalci/php-5.6-apache:dev
         environment:
           DEBUG: true
           DATABASE_URL: "mysql://root:password@127.0.0.1/cisample?encoding=utf8mb4&timezone=UTC&cacheMetadata=true"
@@ -22,14 +22,14 @@ jobs:
           command: composer install --dev --no-interaction
       - run:
           name: Install Framgia-ci tool
-          command: sudo curl -o /usr/bin/framgia-ci https://raw.githubusercontent.com/framgia/ci-report-tool/master/dist/framgia-ci && sudo chmod +x /usr/bin/framgia-ci
+          command: curl -o /usr/bin/framgia-ci https://raw.githubusercontent.com/framgia/ci-report-tool/master/dist/framgia-ci && chmod +x /usr/bin/framgia-ci
       - save_cache:
           key: circle-ci-cakephp-{{ .Branch }}
           paths:
             - "/home/ubuntu/.composer/cache"
       - run:
           name: create test repot dir
-          command: sudo mkdir -p $CIRCLE_TEST_REPORTS/phpunit
+          command: mkdir -p $CIRCLE_TEST_REPORTS/phpunit
       - run:
           name: Wait for MySQL DB
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
