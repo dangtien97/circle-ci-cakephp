@@ -12,7 +12,7 @@ jobs:
         environment:
           MYSQL_DATABASE: cisample
           MYSQL_ROOT_PASSWORD: password
-    working_directory: /var/www/html
+    working_directory: /var/www/circle-ci
     steps:
       - restore_cache:
           key: circle-ci-cakephp-{{ .Branch }}
