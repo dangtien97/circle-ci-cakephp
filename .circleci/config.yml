@@ -2,7 +2,7 @@ version: 2
 jobs:
   main_test:
     docker:
-      - image: circleci/php:5.6.38-apache-node-browsers-legacy
+      - image: 1and1internet/ubuntu-16-apache-php-5.6:latest
         environment:
           DEBUG: true
           DATABASE_URL: "mysql://root:password@127.0.0.1/cisample?encoding=utf8mb4&timezone=UTC&cacheMetadata=true"
@@ -14,9 +14,6 @@ jobs:
           MYSQL_ROOT_PASSWORD: password
     working_directory: /var/www/html
     steps:
-      - run:
-          name: Provide permisson for circleci
-          command: sudo chown -R circleci:circleci /var/www/html
       - restore_cache:
           key: circle-ci-cakephp-{{ .Branch }}
       - checkout
@@ -36,9 +33,6 @@ jobs:
       - run:
           name: Wait for MySQL DB
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
-      - run:
-          name: Install php-mysql
-          command: sudo apt-add-repository ppa:ondrej/php && sudo apt-get update && sudo apt-get install php5.6-mysql
       - run:
           name: Initialize Database
           command: bin/cake migrations migrate
