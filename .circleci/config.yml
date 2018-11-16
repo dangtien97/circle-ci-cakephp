@@ -2,7 +2,7 @@ version: 2
 jobs:
   main_test:
     docker:
-      - image: tenkoma/php:7.1-apache-sample
+      - image: tiennd97/php5.6-apache:1.0
         environment:
           DEBUG: true
           DATABASE_URL: "mysql://root:password@127.0.0.1/cisample?encoding=utf8mb4&timezone=UTC&cacheMetadata=true"
