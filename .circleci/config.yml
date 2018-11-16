@@ -2,7 +2,7 @@ version: 2
 jobs:
   php_test:
     docker:
-      - image: abhayagiri/php-5.6-apache
+      - image: circleci/php:5.6.38-apache-jessie-node-browsers-legacy
         environment:
           DEBUG: true
           DATABASE_URL: "mysql://root:password@127.0.0.1/cisample?encoding=utf8mb4&timezone=UTC&cacheMetadata=true"
@@ -33,7 +33,7 @@ jobs:
           command: bin/cake migrations migrate
   php_code_sniffer:
     docker:
-      - image: abhayagiri/php-5.6-apache
+      - image: circleci/php:5.6.38-apache-jessie-node-browsers-legacy
         environment:
           DEBUG: true
     working_directory: /var/www/html
