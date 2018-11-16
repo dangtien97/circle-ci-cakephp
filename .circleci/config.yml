@@ -2,7 +2,7 @@ version: 2
 jobs:
   main_test:
     docker:
-      - image: drupalci/php-5.6-apache:dev
+      - image: php:5.6.38-apache-stretch
         environment:
           DEBUG: true
           DATABASE_URL: "mysql://root:password@127.0.0.1/cisample?encoding=utf8mb4&timezone=UTC&cacheMetadata=true"
@@ -12,7 +12,7 @@ jobs:
         environment:
           MYSQL_DATABASE: cisample
           MYSQL_ROOT_PASSWORD: password
-    working_directory: /var/www/cakephp
+    working_directory: /var/www/html
     steps:
       - restore_cache:
           key: circle-ci-cakephp-{{ .Branch }}
