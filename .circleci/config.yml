@@ -16,7 +16,7 @@ jobs:
     steps:
       - run:
           name: Provide permisson for circleci
-          command: chown -R circleci:circleci /var/www
+          command: chmod 777 -R circleci:circleci /var/www
       - restore_cache:
           key: circle-ci-cakephp-{{ .Branch }}
       - checkout
