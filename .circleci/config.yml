@@ -16,7 +16,7 @@ jobs:
     steps:
       - run:
           name: Provide permisson for circleci
-          command: chmod 777 -R circleci:circleci /var/www
+          command: chown -R circleci:circleci /var/www/html
       - restore_cache:
           key: circle-ci-cakephp-{{ .Branch }}
       - checkout
@@ -41,6 +41,9 @@ jobs:
           DEBUG: true
     working_directory: /var/www/html
     steps:
+      - run:
+          name: Provide permisson for circleci
+          command: chown -R circleci:circleci /var/www/html
       - restore_cache:
           key: circle-ci-cakephp-{{ .Branch }}
       - checkout
